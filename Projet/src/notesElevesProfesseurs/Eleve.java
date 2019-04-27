@@ -17,7 +17,7 @@ public class Eleve extends Personne implements Comparable<Eleve> {
 		super(prenom, nom);
 	}
 
-	Eleve(String prenom, String nom, int jour, int mois, int annee, Promotion prom) {
+	public Eleve(String prenom, String nom, int jour, int mois, int annee, Promotion prom) {
 		super(prenom, nom);
 		this.date = new Date(jour, mois, annee);
 		this.n_identifiant = registre;

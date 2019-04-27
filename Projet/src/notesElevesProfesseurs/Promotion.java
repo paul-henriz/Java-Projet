@@ -7,7 +7,7 @@ public class Promotion {
 	private String nom;
 	private ArrayList<Eleve> promo;
 
-	Promotion(String nomPromo) {
+	public Promotion(String nomPromo) {
 		this.nom = nomPromo;
 		promo = new ArrayList<Eleve>();
 	}

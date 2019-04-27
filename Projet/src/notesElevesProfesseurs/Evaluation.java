@@ -39,7 +39,7 @@ public class Evaluation {
 	}
 
 	// Constructeur avec 4 paramètres //
-	Evaluation(Eleve corrige, Professeur correcteur, String matiere, float note) {
+	public Evaluation(Eleve corrige, Professeur correcteur, String matiere, float note) {
 		this.corrige = corrige;
 		this.correcteur = correcteur;
 		this.matiere = matiere;

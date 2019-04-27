@@ -2,7 +2,7 @@ package notesElevesProfesseurs;
 
 public class Professeur extends Personne {
 
-	Professeur(String prenom, String nom) {
+	public Professeur(String prenom, String nom) {
 		super(prenom, nom);
 	}
 
