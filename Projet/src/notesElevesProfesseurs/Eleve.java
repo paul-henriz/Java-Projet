@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Classe définissant un élève, classe fille de la classe Personne
+ */
 public class Eleve extends Personne implements Comparable<Eleve> {
 	/**
 	 * Entier représentant l'identifiant de l'élève

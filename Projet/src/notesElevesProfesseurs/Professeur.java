@@ -1,5 +1,8 @@
 package notesElevesProfesseurs;
 
+/**
+ * Classe définissant un professeur, classe fille de la classe Personne
+ */
 public class Professeur extends Personne {
 	/**
 	 * Constructeur à deux paramètres
