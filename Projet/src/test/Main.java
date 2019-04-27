@@ -1,4 +1,9 @@
-package notesElevesProfesseurs;
+package test;
+
+import notesElevesProfesseurs.Eleve;
+import notesElevesProfesseurs.Evaluation;
+import notesElevesProfesseurs.Professeur;
+import notesElevesProfesseurs.Promotion;
 
 public class Main {
 
@@ -29,15 +34,7 @@ public class Main {
 			Claire.addEvaluation(new Evaluation(Paul, Michel, "Physique", 11.0f));
 			System.out.printf("%5s %s\t %s\n", "", "Création d'évaluations", "OK");
 
-			System.out.println(L3.getEleves());
-			L3.triCroissantMediane();
-			System.out.println(L3.getEleves());
-			L3.triCroissantMoyenne();
-			System.out.println(L3.getEleves());
-			L3.triDecroissantMediane();
-			System.out.println(L3.getEleves());
-			L3.triDecroissantMoyenne();
-			System.out.println(L3.getEleves());
+			
 		} catch (IllegalStateException e) {
 			System.err.println(e.getMessage());
 		}
