@@ -9,6 +9,9 @@ public class TestNormal {
 
 	public static void main(String[] args) {
 		try {
+			System.out.println("### Début d'éxecution ###");
+			System.out.println();
+			
 			System.out.println("-- Initialisation --");
 			Promotion L3 = new Promotion("L3");
 			System.out.printf("%5s %s\t %s\n", "", "Création d'une promotion", "OK");
@@ -83,8 +86,10 @@ public class TestNormal {
 			L3.triDecroissantMediane();
 			System.out.println(L3);
 			System.out.println("--Fin tri décroissant médiane --");
+			System.out.println();
 			
 			System.out.println();
+			System.out.println("### Fin d'éxecution ###");
 			
 		} catch (IllegalStateException e) {
 			System.err.println(e.getMessage());
