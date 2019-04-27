@@ -9,6 +9,7 @@ public class TestNormal {
 
 	public static void main(String[] args) {
 		try {
+			System.out.println("## Scénario normal ##");
 			System.out.println("### Début d'éxecution ###");
 			System.out.println();
 			
