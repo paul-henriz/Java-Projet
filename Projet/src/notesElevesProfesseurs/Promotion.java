@@ -54,4 +54,9 @@ public class Promotion {
 		triCroissantMediane();
 		Collections.reverse(promo);
 	}
+
+	@Override
+	public String toString() {
+		return "Promotion " + nom + "\n" + promo;
+	}
 }
