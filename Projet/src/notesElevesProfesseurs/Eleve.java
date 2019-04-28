@@ -69,7 +69,6 @@ public class Eleve extends Personne implements Comparable<Eleve> {
 		registre++;
 		evaluation = new ArrayList<Evaluation>();
 		this.promotion = prom;
-		this.promotion.ajouterEleve(this);
 	}
 
 	/**
@@ -218,8 +217,8 @@ public class Eleve extends Personne implements Comparable<Eleve> {
 		for (int i = 0; i < evaluation.size(); i++) {
 			print.append(" " + evaluation.get(i).getMatiere() + " " + evaluation.get(i).getNote());
 		}
-		print.append("\nmoyenne: " + moyenne());
-		print.append("\nmédiane: " + mediane());
+		print.append("\nmoyenne: " + getMoyenne());
+		print.append("\nmédiane: " + getMediane());
 		print.append("\ncorrecteur(s): " + getCorrecteurs().toString() + "\n");
 		return print.toString();
 	}
