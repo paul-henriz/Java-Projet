@@ -27,7 +27,7 @@ public class TestNormal {
 			while(lecteur.hasNextLine()) {
 				String s = lecteur.nextLine();
 				Scanner ligne = new Scanner(s);
-				ligne.useDelimiter(";");
+				ligne.useDelimiter(",");
 				L3.ajouterEleve(new Eleve(ligne.next(), ligne.next(), ligne.nextInt(), ligne.nextInt(), ligne.nextInt(), L3));
 				ligne.close();
 			}
@@ -39,7 +39,7 @@ public class TestNormal {
 			while(lecteur.hasNextLine()) {
 				String s = lecteur.nextLine();
 				Scanner ligne = new Scanner(s);
-				ligne.useDelimiter(";");
+				ligne.useDelimiter(",");
 				while(ligne.hasNext()) {
 					Profs.add(new Professeur(ligne.next(), ligne.next()));
 				}
@@ -52,7 +52,7 @@ public class TestNormal {
 			while(lecteur.hasNextLine()) {
 				String s = lecteur.nextLine();
 				Scanner ligne = new Scanner(s);
-				ligne.useDelimiter(";");
+				ligne.useDelimiter(",");
 				while(ligne.hasNext()) {
 					int n_eleve = ligne.nextInt();
 					int n_prof = ligne.nextInt();
@@ -81,7 +81,7 @@ public class TestNormal {
 			for(Eleve e : L3.getEleves()) {
 				for(Evaluation n : e.getEvaluation()) {
 					int i = chercherProf(Profs, n.getCorrecteur().getNom(), n.getCorrecteur().getPrenom());
-					sauvegarde.println(e.getN_identifiant() + ";" + i + ";" + n.getMatiere() + ";" + n.getNote());
+					sauvegarde.println(e.getN_identifiant() + "," + i + "," + n.getMatiere() + "," + n.getNote());
 				}
 			}
 			sauvegarde.close();
