@@ -1,5 +1,12 @@
 package test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import notesElevesProfesseurs.Eleve;
 import notesElevesProfesseurs.Evaluation;
 import notesElevesProfesseurs.Professeur;
@@ -16,33 +23,73 @@ public class TestNormal {
 			System.out.println("-- Initialisation --");
 			Promotion L3 = new Promotion("L3");
 			System.out.printf("%5s %s\t %s\n", "", "Création d'une promotion", "OK");
-
-			Eleve Jean = new Eleve("Jean", "Tille", 8, 9, 1997, L3);
-			Eleve Paul = new Eleve("Paul", "Dupont", 11, 2, 2003, L3);
-			Eleve Claire = new Eleve("Claire", "Fine", 4, 3, 2001, L3);
+			Scanner lecteur = new Scanner(new File("./ListeEleves.csv"));
+			while(lecteur.hasNextLine()) {
+				String s = lecteur.nextLine();
+				Scanner ligne = new Scanner(s);
+				ligne.useDelimiter(";");
+				L3.ajouterEleve(new Eleve(ligne.next(), ligne.next(), ligne.nextInt(), ligne.nextInt(), ligne.nextInt(), L3));
+				ligne.close();
+			}
+			lecteur.close();
 			System.out.printf("%5s %s\t\t %s\n", "", "Création d'élèves", "OK");
 
-			Professeur Soleil = new Professeur("Soleil", "Tournesol");
-			Professeur Michel = new Professeur("Super", "Michel");
-			Professeur Javel = new Professeur("Aude", "Javel");
+			ArrayList<Professeur> Profs = new ArrayList<>();
+			lecteur = new Scanner(new File("./ListeProfesseurs.csv"));
+			while(lecteur.hasNextLine()) {
+				String s = lecteur.nextLine();
+				Scanner ligne = new Scanner(s);
+				ligne.useDelimiter(";");
+				while(ligne.hasNext()) {
+					Profs.add(new Professeur(ligne.next(), ligne.next()));
+				}
+				ligne.close();
+			}
+			lecteur.close();
 			System.out.printf("%5s %s\t %s\n", "", "Création de professeurs", "OK");
 
-			Jean.addEvaluation(new Evaluation(Jean, Soleil, "Mathématiques", 13.0f));
-			Jean.addEvaluation(new Evaluation(Jean, Javel, "Informatique", 8.0f));
-			Jean.addEvaluation(new Evaluation(Jean, Michel, "Physique", 12.0f));
-			Paul.addEvaluation(new Evaluation(Paul, Soleil, "Mathématiques", 16.0f));
-			Paul.addEvaluation(new Evaluation(Paul, Javel, "Informatique", 15.0f));
-			Paul.addEvaluation(new Evaluation(Paul, Michel, "Physique", 18.0f));
-			Claire.addEvaluation(new Evaluation(Paul, Soleil, "Mathématiques", 10.0f));
-			Claire.addEvaluation(new Evaluation(Paul, Javel, "Informatique", 20.0f));
-			Claire.addEvaluation(new Evaluation(Paul, Michel, "Physique", 11.0f));
+			lecteur = new Scanner(new File("./ListeNotes.csv"));
+			while(lecteur.hasNextLine()) {
+				String s = lecteur.nextLine();
+				Scanner ligne = new Scanner(s);
+				ligne.useDelimiter(";");
+				while(ligne.hasNext()) {
+					int n_eleve = ligne.nextInt();
+					int n_prof = ligne.nextInt();
+					String matiere = ligne.next();
+					float note = ligne.nextFloat();
+					Eleve e = L3.rechercher(n_eleve);
+					e.addEvaluation(new Evaluation(e, Profs.get(n_prof-1), matiere, note));
+				}
+				ligne.close();
+			}
+			lecteur.close();
 			System.out.printf("%5s %s\t %s\n", "", "Création d'évaluations", "OK");
 
 			System.out.println("-- Fin initialisation --");
 			System.out.println();
 			
+			System.out.println("-- Modification de note --");
+			Profs.get(0).setNote(L3, 1, 20, 0);
+			Profs.get(1).setNote(L3, 1, 20, 1);
+			Profs.get(2).setNote(L3, 1, 20, 2);
+			System.out.println("-- Fin modification --");
+			System.out.println();
+			
+			System.out.println("-- Sauvegarde des notes dans un fichier distinct --");
+			PrintWriter sauvegarde = new PrintWriter("save_ListeNotes.csv");
+			for(Eleve e : L3.getEleves()) {
+				for(Evaluation n : e.getEvaluation()) {
+					int i = chercherProf(Profs, n.getCorrecteur().getNom(), n.getCorrecteur().getPrenom());
+					sauvegarde.println(e.getN_identifiant() + ";" + i + ";" + n.getMatiere() + ";" + n.getNote());
+				}
+			}
+			sauvegarde.close();
+			System.out.println("-- Fin sauvegarde --");
+			System.out.println();
+			
 			System.out.println("-- Affichage d'un élève --");
-			System.out.println(Jean);
+			System.out.println(L3.rechercher(1));
 			System.out.println("-- Fin affichage élève --");
 			System.out.println();
 			
@@ -94,7 +141,17 @@ public class TestNormal {
 			
 		} catch (IllegalStateException e) {
 			System.err.println(e.getMessage());
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
 		}
+	}
+	public static int chercherProf(ArrayList<Professeur> liste, String nom, String prenom) {
+		int i = 0;
+		for(Professeur p : liste) {
+			if(nom == p.getNom() && prenom == p.getPrenom()) return i;
+			i++;
+		}
+		return -1;
 	}
 
 }
